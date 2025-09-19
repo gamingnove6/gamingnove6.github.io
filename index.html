@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BONE Offset Calculator - Platinum Premium Edition</title>
+    <link rel="stylesheet" href="#" id="styles">
+    <style id="premium-styles">
+        /* Ultra Premium Design Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 15%, #2d2d2d 35%, #404040 50%, #2d2d2d 65%, #1a1a1a 85%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            color: #e8e8e8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 25%, rgba(229, 228, 226, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(192, 192, 192, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
+                linear-gradient(45deg, rgba(229, 228, 226, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(229, 228, 226, 0.015) 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 0;
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #E5E4E2 0%, #C0C0C0 25%, #FFFFFF 50%, #E5E4E2 75%, #C0C0C0 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 
+                0 0 40px rgba(229, 228, 226, 0.4),
+                0 0 80px rgba(192, 192, 192, 0.2);
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #E5E4E2, transparent);
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #b8b8b8;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .calculator-card {
+            background: linear-gradient(145deg, rgba(20, 20, 20, 0.95), rgba(40, 40, 40, 0.90), rgba(25, 25, 25, 0.95));
+            backdrop-filter: blur(25px);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 
+                0 25px 80px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(229, 228, 226, 0.15),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+                0 0 60px rgba(229, 228, 226, 0.08);
+            border: 2px solid;
+            border-image: linear-gradient(135deg, rgba(229, 228, 226, 0.2), rgba(192, 192, 192, 0.1), rgba(229, 228, 226, 0.2)) 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calculator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(229, 228, 226, 0.6), transparent);
+        }
+
+        .input-section {
+            margin-bottom: 40px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #E5E4E2;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 22px 30px;
+            font-size: 1.3rem;
+            background: linear-gradient(145deg, rgba(15, 15, 15, 0.9), rgba(30, 30, 30, 0.8));
+            border: 2px solid rgba(229, 228, 226, 0.3);
+            border-radius: 20px;
+            color: #f0f0f0;
+            outline: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Consolas', 'Courier New', monospace;
+            backdrop-filter: blur(15px);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .input-field:focus {
+            border-color: #E5E4E2;
+            box-shadow: 
+                0 0 30px rgba(229, 228, 226, 0.4),
+                inset 0 0 30px rgba(229, 228, 226, 0.1);
+            transform: translateY(-3px);
+            background: linear-gradient(145deg, rgba(25, 25, 25, 0.9), rgba(40, 40, 40, 0.8));
+        }
+
+        .input-field::placeholder {
+            color: #888;
+            font-style: italic;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 22px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #E5E4E2 0%, #C0C0C0 25%, #FFFFFF 50%, #C0C0C0 75%, #E5E4E2 100%);
+            color: #1a1a1a;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 30px rgba(229, 228, 226, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+
+        .calculate-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .calculate-btn:hover::before {
+            left: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(229, 228, 226, 0.5);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .results-section {
+            margin-top: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .results-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(229, 228, 226, 0.08), rgba(192, 192, 192, 0.05));
+            border-radius: 20px;
+            border: 2px solid rgba(229, 228, 226, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .base-offset {
+            font-size: 1.5rem;
+            color: #E5E4E2;
+            font-weight: 700;
+            font-family: 'Consolas', 'Monaco', monospace;
+            text-shadow: 0 0 15px rgba(229, 228, 226, 0.3);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .result-item {
+            background: linear-gradient(145deg, rgba(20, 20, 20, 0.9), rgba(35, 35, 35, 0.8), rgba(25, 25, 25, 0.9));
+            border: 2px solid rgba(229, 228, 226, 0.15);
+            border-radius: 18px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+        }
+
+        .result-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(229, 228, 226, 0.4);
+            background: linear-gradient(145deg, rgba(25, 25, 25, 0.95), rgba(40, 40, 40, 0.85), rgba(30, 30, 30, 0.95));
+        }
+
+        .result-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #E5E4E2, #C0C0C0, #E5E4E2);
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .result-name {
+            font-size: 1.3rem;
+            color: #E5E4E2;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, rgba(229, 228, 226, 0.2), rgba(192, 192, 192, 0.15));
+            border: 1px solid rgba(229, 228, 226, 0.3);
+            color: #E5E4E2;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .copy-btn:hover {
+            background: linear-gradient(135deg, rgba(229, 228, 226, 0.3), rgba(192, 192, 192, 0.25));
+            transform: scale(1.05);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(22, 163, 74, 0.2));
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+
+        .result-values {
+            space-y: 15px;
+        }
+
+        .value-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(229, 228, 226, 0.1);
+        }
+
+        .value-row:last-child {
+            border-bottom: none;
+        }
+
+        .value-label {
+            font-size: 1.1rem;
+            color: #b8b8b8;
+            font-weight: 600;
+        }
+
+        .value-content {
+            font-size: 1.2rem;
+            color: #E5E4E2;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(229, 228, 226, 0.2);
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(185, 28, 28, 0.1));
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #E5E4E2;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            margin-left: 15px;
+            border: 3px solid rgba(229, 228, 226, 0.3);
+            border-radius: 50%;
+            border-top-color: #E5E4E2;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .copy-notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.9), rgba(22, 163, 74, 0.8));
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-weight: 600;
+            transform: translateX(400px);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+        }
+
+        .copy-notification.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .title {
+                font-size: 2.8rem;
+            }
+            
+            .calculator-card {
+                padding: 30px;
+                border-radius: 25px;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-item {
+                padding: 25px;
+            }
+
+            .result-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">BONE OFFSET CALCULATOR</h1>
+            <p class="subtitle">Platinum Premium Edition</p>
+        </div>
+
+        <div class="calculator-card">
+            <div class="input-section">
+                <label class="input-label">Enter Base Write/Replace Offset</label>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        class="input-field" 
+                        id="offsetInput" 
+                        placeholder="0x1234ABCD or decimal value"
+                        autocomplete="off"
+                    >
+                </div>
+                <button class="calculate-btn" onclick="calculateOffsets()">
+                    <span>Calculate Bone Offsets</span>
+                </button>
+            </div>
+
+            <div class="results-section" id="resultsSection">
+                <!-- Results will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="copy-notification" id="copyNotification">
+        Copied to clipboard! ✓
+    </div>
+
+    <script id="offset-calculator">
+        // Enhanced Calculator Logic with accurate C++ matching
+        class PlatinumOffsetCalculator {
+            constructor() {
+                // Exact same deltas as C++ version
+                this.deltas = [
+                    { name: "head_offset", value: 0x4 },
+                    { name: "left_thigh_offset", value: 0x8 },
+                    { name: "pelvis_offset", value: 0x10 },
+                    { name: "right_thigh_offset", value: 0x1C },
+                    { name: "left_neck_offset", value: 0x30 },
+                    { name: "right_neck_offset", value: 0x34 },
+                    { name: "right_chest_offset", value: 0x38 },
+                    { name: "right_shoulder", value: 0x40 },
+                    { name: "left_shoulder", value: 0x44 }
+                ];
+            }
+
+            containsHexLetter(str) {
+                return /[a-fA-F]/.test(str);
+            }
+
+            parseInput(input) {
+                const trimmed = input.trim();
+                if (!trimmed) return null;
+
+                let base = 10;
+                let value = trimmed;
+
+                // Exact same logic as C++ version
+                if (trimmed.length >= 2 && trimmed[0] === '0' && (trimmed[1] === 'x' || trimmed[1] === 'X')) {
+                    base = 16;
+                    value = trimmed.substring(2);
+                } else if (this.containsHexLetter(trimmed)) {
+                    base = 16;
+                }
+
+                const parsed = parseInt(value, base);
+                return isNaN(parsed) ? null : parsed;
+            }
+
+            toHexPrefixed(value) {
+                // Ensure lowercase hex with 0x prefix, matching C++ output exactly
+                return '0x' + value.toString(16).toLowerCase();
+            }
+
+            calculate(baseInput) {
+                const base = this.parseInput(baseInput);
+                if (base === null) {
+                    throw new Error("Can't parse input. Use hex (0x...) or decimal. Try again.");
+                }
+
+                const results = {
+                    base: base,
+                    baseHex: this.toHexPrefixed(base),
+                    offsets: []
+                };
+
+                // Calculate each offset exactly like C++ version
+                for (const delta of this.deltas) {
+                    const readValue = base + delta.value;  // This is the computed offset (Read)
+                    results.offsets.push({
+                        name: delta.name,
+                        writeValue: base,                   // User entered value (Write)
+                        writeHex: this.toHexPrefixed(base),
+                        readValue: readValue,               // Calculated value (Read)
+                        readHex: this.toHexPrefixed(readValue),
+                        delta: delta.value
+                    });
+                }
+
+                return results;
+            }
+        }
+
+        // Enhanced UI Controller
+        class PlatinumUIController {
+            constructor() {
+                this.calculator = new PlatinumOffsetCalculator();
+                this.resultsSection = document.getElementById('resultsSection');
+                this.inputField = document.getElementById('offsetInput');
+                this.copyNotification = document.getElementById('copyNotification');
+                
+                // Add enter key support
+                this.inputField.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.calculateOffsets();
+                    }
+                });
+            }
+
+            showLoading() {
+                this.resultsSection.innerHTML = '<div class="loading">Computing precise bone offsets...</div>';
+                this.resultsSection.classList.add('show');
+            }
+
+            showError(message) {
+                this.resultsSection.innerHTML = `<div class="error-message">${message}</div>`;
+                this.resultsSection.classList.add('show');
+            }
+
+            async copyToClipboard(text, button) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    button.textContent = 'COPIED';
+                    button.classList.add('copied');
+                    
+                    this.showCopyNotification();
+                    
+                    setTimeout(() => {
+                        button.textContent = 'COPY';
+                        button.classList.remove('copied');
+                    }, 2000);
+                } catch (err) {
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    button.textContent = 'COPIED';
+                    button.classList.add('copied');
+                    
+                    this.showCopyNotification();
+                    
+                    setTimeout(() => {
+                        button.textContent = 'COPY';
+                        button.classList.remove('copied');
+                    }, 2000);
+                }
+            }
+
+            showCopyNotification() {
+                this.copyNotification.classList.add('show');
+                setTimeout(() => {
+                    this.copyNotification.classList.remove('show');
+                }, 3000);
+            }
+
+            showResults(results) {
+                let html = `
+                    <div class="results-header">
+                        <div class="base-offset">Computed Offsets from base ${results.baseHex}</div>
+                    </div>
+                    <div class="results-grid">
+                `;
+
+                for (const offset of results.offsets) {
+                    const displayName = offset.name.replace(/_/g, ' ');
+                    const copyText = `${displayName}\nRead: ${offset.readHex}\nWrite: ${offset.writeHex}`;
+                    
+                    html += `
+                        <div class="result-item">
+                            <div class="result-header">
+                                <div class="result-name">${displayName}</div>
+                                <button class="copy-btn" onclick="app.copyToClipboard('${copyText}', this)">COPY</button>
+                            </div>
+                            <div class="result-values">
+                                <div class="value-row">
+                                    <span class="value-label"><strong>Read:</strong></span>
+                                    <span class="value-content">${offset.readHex}</span>
+                                </div>
+                                <div class="value-row">
+                                    <span class="value-label">Write:</span>
+                                    <span class="value-content">${offset.writeHex}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                html += '</div>';
+                this.resultsSection.innerHTML = html;
+                this.resultsSection.classList.add('show');
+            }
+
+            calculateOffsets() {
+                const input = this.inputField.value;
+                
+                if (!input.trim()) {
+                    this.showError('Please enter a base offset value.');
+                    return;
+                }
+
+                try {
+                    this.showLoading();
+                    
+                    // Simulate processing time for premium feel
+                    setTimeout(() => {
+                        try {
+                            const results = this.calculator.calculate(input);
+                            this.showResults(results);
+                        } catch (error) {
+                            this.showError(error.message);
+                        }
+                    }, 800);
+
+                } catch (error) {
+                    this.showError(error.message);
+                }
+            }
+        }
+
+        // Initialize application
+        let app;
+        document.addEventListener('DOMContentLoaded', () => {
+            app = new PlatinumUIController();
+        });
+
+        // Global function for button onclick
+        function calculateOffsets() {
+            if (app) {
+                app.calculateOffsets();
+            }
+        }
+    </script>
+</body>
+</html>
