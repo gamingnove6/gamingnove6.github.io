@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Tool Suite - Black Platinum Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(192, 192, 192, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(169, 169, 169, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            padding: 2rem 5%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #c0c0c0;
+            box-shadow: 0 4px 30px rgba(192, 192, 192, 0.2);
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #c0c0c0, #ffffff, #a9a9a9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(192, 192, 192, 0.5);
+        }
+
+        /* Tab Navigation */
+        .tab-navigation {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem 5%;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(10px);
+            z-index: 50;
+        }
+
+        .tab-btn {
+            padding: 1rem 2.5rem;
+            background: rgba(30, 30, 30, 0.8);
+            border: 2px solid #404040;
+            color: #c0c0c0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tab-btn:hover {
+            background: rgba(40, 40, 40, 0.9);
+            border-color: #c0c0c0;
+            box-shadow: 0 0 20px rgba(192, 192, 192, 0.3);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #404040, #606060);
+            border-color: #c0c0c0;
+            color: #ffffff;
+            box-shadow: 0 0 30px rgba(192, 192, 192, 0.4);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 6rem 5% 4rem;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff, #c0c0c0, #a9a9a9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(192, 192, 192, 0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(192, 192, 192, 0.8)); }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Tool Section */
+        .tool-section {
+            position: relative;
+            padding: 3rem 5%;
+            z-index: 1;
+        }
+
+        .tool-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(20, 20, 20, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid #404040;
+            box-shadow: 0 10px 50px rgba(192, 192, 192, 0.2);
+        }
+
+        .tool-container h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #c0c0c0, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #c0c0c0;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid #404040;
+            border-radius: 10px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #c0c0c0;
+            box-shadow: 0 0 20px rgba(192, 192, 192, 0.2);
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #404040, #606060);
+            color: #ffffff;
+            border: 2px solid #c0c0c0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .generate-btn:hover {
+            background: linear-gradient(135deg, #606060, #808080);
+            box-shadow: 0 0 30px rgba(192, 192, 192, 0.4);
+        }
+
+        .result-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid #404040;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .result-box.active {
+            display: block;
+        }
+
+        .result-box h3 {
+            color: #c0c0c0;
+            margin-bottom: 1rem;
+        }
+
+        .result-content {
+            color: #a0a0a0;
+            line-height: 1.8;
+        }
+
+        /* BONE Calculator Styles */
+        .calculator-card {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, rgba(20, 20, 20, 0.95), rgba(40, 40, 40, 0.90));
+            backdrop-filter: blur(25px);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 
+                0 25px 80px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(229, 228, 226, 0.15);
+            border: 2px solid rgba(229, 228, 226, 0.2);
+        }
+
+        .input-section {
+            margin-bottom: 40px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #E5E4E2;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 22px 30px;
+            font-size: 1.3rem;
+            background: linear-gradient(145deg, rgba(15, 15, 15, 0.9), rgba(30, 30, 30, 0.8));
+            border: 2px solid rgba(229, 228, 226, 0.3);
+            border-radius: 20px;
+            color: #f0f0f0;
+            outline: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Consolas', 'Courier New', monospace;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .input-field:focus {
+            border-color: #E5E4E2;
+            box-shadow: 0 0 30px rgba(229, 228, 226, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 22px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #E5E4E2 0%, #C0C0C0 25%, #FFFFFF 50%, #C0C0C0 75%, #E5E4E2 100%);
+            color: #1a1a1a;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 30px rgba(229, 228, 226, 0.3);
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(229, 228, 226, 0.5);
+        }
+
+        .results-section {
+            margin-top: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .results-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(229, 228, 226, 0.08), rgba(192, 192, 192, 0.05));
+            border-radius: 20px;
+            border: 2px solid rgba(229, 228, 226, 0.2);
+        }
+
+        .base-offset {
+            font-size: 1.5rem;
+            color: #E5E4E2;
+            font-weight: 700;
+            font-family: 'Consolas', 'Monaco', monospace;
+            text-shadow: 0 0 15px rgba(229, 228, 226, 0.3);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .result-item {
+            background: linear-gradient(145deg, rgba(20, 20, 20, 0.9), rgba(35, 35, 35, 0.8));
+            border: 2px solid rgba(229, 228, 226, 0.15);
+            border-radius: 18px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .result-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border-color: rgba(229, 228, 226, 0.4);
+        }
+
+        .result-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #E5E4E2, #C0C0C0, #E5E4E2);
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .result-name {
+            font-size: 1.3rem;
+            color: #E5E4E2;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, rgba(229, 228, 226, 0.2), rgba(192, 192, 192, 0.15));
+            border: 1px solid rgba(229, 228, 226, 0.3);
+            color: #E5E4E2;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .copy-btn:hover {
+            background: linear-gradient(135deg, rgba(229, 228, 226, 0.3), rgba(192, 192, 192, 0.25));
+            transform: scale(1.05);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(22, 163, 74, 0.2));
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+
+        .result-values {
+            space-y: 15px;
+        }
+
+        .value-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(229, 228, 226, 0.1);
+        }
+
+        .value-row:last-child {
+            border-bottom: none;
+        }
+
+        .value-label {
+            font-size: 1.1rem;
+            color: #b8b8b8;
+            font-weight: 600;
+        }
+
+        .value-content {
+            font-size: 1.2rem;
+            color: #E5E4E2;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(229, 228, 226, 0.2);
+        }
+
+        .error-message {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(185, 28, 28, 0.1));
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #E5E4E2;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            margin-left: 15px;
+            border: 3px solid rgba(229, 228, 226, 0.3);
+            border-radius: 50%;
+            border-top-color: #E5E4E2;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .copy-notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.9), rgba(22, 163, 74, 0.8));
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-weight: 600;
+            transform: translateX(400px);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+        }
+
+        .copy-notification.show {
+            transform: translateX(0);
+        }
+
+        footer {
+            position: relative;
+            padding: 3rem 5%;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 2px solid #404040;
+            z-index: 1;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            color: #808080;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .tab-navigation {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tab-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .calculator-card {
+                padding: 30px;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">⚡ PREMIUM TOOL SUITE</div>
+        </nav>
+    </header>
+
+    <div class="tab-navigation">
+        <button class="tab-btn active" onclick="switchTab('emote')">Emote AOB Generator</button>
+        <button class="tab-btn" onclick="switchTab('bone')">BONE Offset Calculator</button>
+    </div>
+
+    <!-- Tab 1: Emote AOB Generator -->
+    <div id="emote-tab" class="tab-content active">
+        <section class="hero">
+            <h1>Emote AOB Generator</h1>
+            <p>Professional-grade tool for calculating AOB patterns with precision and speed. Streamline your workflow with our advanced generation system.</p>
+        </section>
+
+        <section class="tool-section">
+            <div class="tool-container">
+                <h2>Generate AOB Pattern</h2>
+                <div class="input-group">
+                    <label for="itemId">Item ID</label>
+                    <input type="number" id="itemId" placeholder="Enter Item ID (e.g., 1050)">
+                </div>
+                <div class="input-group">
+                    <label for="emoteName">Emote Name (Optional)</label>
+                    <input type="text" id="emoteName" placeholder="Enter emote name">
+                </div>
+                <div class="input-group" id="manualByteGroup" style="display: none;">
+                    <label for="manualByte">First Byte (HEX)</label>
+                    <input type="text" id="manualByte" placeholder="e.g., 9A" maxlength="2">
+                </div>
+                <button class="generate-btn" onclick="generateAOB()">Generate AOB</button>
+                
+                <div class="result-box" id="resultBox">
+                    <h3>✅ Generated Result</h3>
+                    <div class="result-content" id="resultContent"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Tab 2: BONE Offset Calculator -->
+    <div id="bone-tab" class="tab-content">
+        <section class="hero">
+            <h1>BONE Offset Calculator</h1>
+            <p>Calculate precise bone offsets from base write/replace offset values with platinum precision.</p>
+        </section>
+
+        <section class="tool-section">
+            <div class="calculator-card">
+                <div class="input-section">
+                    <label class="input-label">Enter Base Write/Replace Offset</label>
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            class="input-field" 
+                            id="offsetInput" 
+                            placeholder="0x1234ABCD or decimal value"
+                            autocomplete="off"
+                        >
+                    </div>
+                    <button class="calculate-btn" onclick="calculateOffsets()">
+                        <span>Calculate Bone Offsets</span>
+                    </button>
+                </div>
+
+                <div class="results-section" id="resultsSection">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Premium Tool Suite. All rights reserved. | Powered by Advanced Technology</p>
+    </footer>
+
+    <div class="copy-notification" id="copyNotification">
+        Copied to clipboard! ✓
+    </div>
+
+    <script>
+        // Tab Switching
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Emote AOB Generator Logic
+        function calculateAOB(itemId) {
+            const index = itemId % 1000;
+            if (index >= 1 && index <= 99) {
+                const firstByte = 0x40 + index;
+                return firstByte.toString(16).toUpperCase().padStart(2, '0') + ' 3D 2E 36';
+            }
+            return null;
+        }
+
+        function generateAOB() {
+            const itemId = parseInt(document.getElementById('itemId').value);
+            const emoteName = document.getElementById('emoteName').value || 'N/A';
+            const resultBox = document.getElementById('resultBox');
+            const resultContent = document.getElementById('resultContent');
+            const manualByteGroup = document.getElementById('manualByteGroup');
+            const manualByte = document.getElementById('manualByte').value;
+
+            if (isNaN(itemId)) {
+                alert('Please enter a valid Item ID');
+                return;
+            }
+
+            let finalAOB = calculateAOB(itemId);
+
+            if (finalAOB === null) {
+                if (!manualByte || manualByte.length !== 2 || !/^[0-9A-Fa-f]{2}$/.test(manualByte)) {
+                    manualByteGroup.style.display = 'block';
+                    alert('Special emote detected. Please enter the first byte in HEX format (2 digits).');
+                    return;
+                }
+                finalAOB = manualByte.toUpperCase() + ' 3D 2E 36';
+            }
+
+            manualByteGroup.style.display = 'none';
+
+            const result = `
+                <strong>Item ID:</strong> ${itemId}<br>
+                <strong>Emote Name:</strong> ${emoteName}<br>
+                <strong>Final AOB:</strong> <span style="color: #c0c0c0; font-family: monospace; font-size: 1.2rem;">${finalAOB}</span>
+            `;
+
+            resultContent.innerHTML = result;
+            resultBox.classList.add('active');
+        }
+
+        document.getElementById('itemId').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                generateAOB();
+            }
+        });
+
+        // BONE Offset Calculator Logic
+        class PlatinumOffsetCalculator {
+            constructor() {
+                this.deltas = [
+                    { name: "head_offset", value: 0x4 },
+                    { name: "left_thigh_offset", value: 0x8 },
+                    { name: "pelvis_offset", value: 0x10 },
+                    { name: "right_thigh_offset", value: 0x1C },
+                    { name: "left_neck_offset", value: 0x30 },
+                    { name: "right_neck_offset", value: 0x34 },
+                    { name: "right_chest_offset", value: 0x38 },
+                    { name: "right_shoulder", value: 0x40 },
+                    { name: "left_shoulder", value: 0x44 }
+                ];
+            }
+
+            containsHexLetter(str) {
+                return /[a-fA-F]/.test(str);
+            }
+
+            parseInput(input) {
+                const trimmed = input.trim();
+                if (!trimmed) return null;
+
+                let base = 10;
+                let value = trimmed;
+
+                if (trimmed.length >= 2 && trimmed[0] === '0' && (trimmed[1] === 'x' || trimmed[1] === 'X')) {
+                    base = 16;
+                    value = trimmed.substring(2);
+                } else if (this.containsHexLetter(trimmed)) {
+                    base = 16;
+                }
+
+                const parsed = parseInt(value, base);
+                return isNaN(parsed) ? null : parsed;
+            }
+
+            toHexPrefixed(value) {
+                return '0x' + value.toString(16).toLowerCase();
+            }
+
+            calculate(baseInput) {
+                const base = this.parseInput(baseInput);
+                if (base === null) {
+                    throw new Error("Can't parse input. Use hex (0x...) or decimal. Try again.");
+                }
+
+                const results = {
+                    base: base,
+                    baseHex: this.toHexPrefixed(base),
+                    offsets: []
+                };
+
+                for (const delta of this.deltas) {
+                    const readValue = base + delta.value;
+                    results.offsets.push({
+                        name: delta.name,
+                        writeValue: base,
+                        writeHex: this.toHexPrefixed(base),
+                        readValue: readValue,
+                        readHex: this.toHexPrefixed(readValue),
+                        delta: delta.value
+                    });
+                }
+
+                return results;
+            }
+        }
+
+        class PlatinumUIController {
+            constructor() {
+                this.calculator = new PlatinumOffsetCalculator();
+                this.resultsSection = document.getElementById('resultsSection');
+                this.inputField = document.getElementById('offsetInput');
+                this.copyNotification = document.getElementById('copyNotification');
+                
+                this.inputField.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.calculateOffsets();
+                    }
+                });
+            }
+
+            showLoading() {
+                this.resultsSection.innerHTML = '<div class="loading">Computing precise bone offsets...</div>';
+                this.resultsSection.classList.add('show');
+            }
+
+            showError(message) {
+                this.resultsSection.innerHTML = `<div class="error-message">${message}</div>`;
+                this.resultsSection.classList.add('show');
+            }
+
+            async copyToClipboard(text, button) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    button.textContent = 'COPIED';
+                    button.classList.add('copied');
+                    
+                    this.showCopyNotification();
+                    
+                    setTimeout(() => {
+                        button.textContent = 'COPY';
+                        button.classList.remove('copied');
+                    }, 2000);
+                } catch (err) {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = text;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    button.textContent = 'COPIED';
+                    button.classList.add('copied');
+                    
+                    this.showCopyNotification();
+                    
+                    setTimeout(() => {
+                        button.textContent = 'COPY';
+                        button.classList.remove('copied');
+                    }, 2000);
+                }
+            }
+
+            showCopyNotification() {
+                this.copyNotification.classList.add('show');
+                setTimeout(() => {
+                    this.copyNotification.classList.remove('show');
+                }, 3000);
+            }
+
+            showResults(results) {
+                let html = `
+                    <div class="results-header">
+                        <div class="base-offset">Computed Offsets from base ${results.baseHex}</div>
+                    </div>
+                    <div class="results-grid">
+                `;
+
+                for (const offset of results.offsets) {
+                    const displayName = offset.name.replace(/_/g, ' ');
+                    const copyText = `${displayName}\nRead: ${offset.readHex}\nWrite: ${offset.writeHex}`;
+                    
+                    html += `
+                        <div class="result-item">
+                            <div class="result-header">
+                                <div class="result-name">${displayName}</div>
+                                <button class="copy-btn" onclick="app.copyToClipboard('${copyText}', this)">COPY</button>
+                            </div>
+                            <div class="result-values">
+                                <div class="value-row">
+                                    <span class="value-label"><strong>Read:</strong></span>
+                                    <span class="value-content">${offset.readHex}</span>
+                                </div>
+                                <div class="value-row">
+                                    <span class="value-label">Write:</span>
+                                    <span class="value-content">${offset.writeHex}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                html += '</div>';
+                this.resultsSection.innerHTML = html;
+                this.resultsSection.classList.add('show');
+            }
+
+            calculateOffsets() {
+                const input = this.inputField.value;
+                
+                if (!input.trim()) {
+                    this.showError('Please enter a base offset value.');
+                    return;
+                }
+
+                try {
+                    this.showLoading();
+                    
+                    setTimeout(() => {
+                        try {
+                            const results = this.calculator.calculate(input);
+                            this.showResults(results);
+                        } catch (error) {
+                            this.showError(error.message);
+                        }
+                    }, 800);
+
+                } catch (error) {
+                    this.showError(error.message);
+                }
+            }
+        }
+
+        let app;
+        document.addEventListener('DOMContentLoaded', () => {
+            app = new PlatinumUIController();
+        });
+
+        function calculateOffsets() {
+            if (app) {
+                app.calculateOffsets();
+            }
+        }
+    </script>
+</body>
+</html>
